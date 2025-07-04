@@ -1,0 +1,13 @@
+body { font-family: sans-serif; }
+li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  margin: 5px;
+  background: #f0f0f0;
+  transition: background 0.3s;
+}
+li.completed {
+  text-decoration: line-through;
+  background: #e0ffe0;
+}
