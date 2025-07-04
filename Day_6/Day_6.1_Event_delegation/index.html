@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Delegation Party 🎉</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f0f0;
+    }
+    #comedyClub {
+      background-color: #fff;
+      padding: 20px;
+      margin: 20px auto;
+      width: 300px;
+      border: 2px solid #ff69b4;
+      border-radius: 10px;
+    }
+    button {
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      padding: 10px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #ff1493;
+    }
+    #addJoke {
+      background-color: #32cd32;
+    }
+    #addJoke:hover {
+      background-color: #228b22;
+    }
+  </style>
+</head>
+<body>
+  <h1>Comedy Club Party 🎭</h1>
+  <p>Click any joke button to hear a laugh! Delegate Dan is watching! 👀</p>
+  
+  <!-- The parent element (Delegate Dan) -->
+  <div id="comedyClub">
+    <button>Laugh at Joke 1</button>
+    <button>Laugh at Joke 2</button>
+    <button>Laugh at Joke 3</button>
+  </div>
+
+  <!-- Button to add new jokes dynamically -->
+  <button id="addJoke">Add New Joke</button>
+
+  <script>
+    // Get the parent (comedyClub) and the "Add New Joke" button
+    const comedyClub = document.getElementById('comedyClub');
+    const addJokeButton = document.getElementById('addJoke');
+    let jokeCount = 3; // Track number of jokes
+
+    // Event delegation: One listener on the parent
+    comedyClub.addEventListener('click', (event) => {
+      // Check if the clicked element is a button
+      if (event.target.tagName === 'BUTTON') {
+        alert(`Haha! ${event.target.textContent} got a big laugh! 😂`);
+        console.log(`Clicked: ${event.target.textContent}`);
+      }
+    });
+
+    // Add a new joke button dynamically
+    addJokeButton.addEventListener('click', () => {
+      jokeCount++;
+      const newJoke = document.createElement('button');
+      newJoke.textContent = `Laugh at Joke ${jokeCount}`;
+      comedyClub.appendChild(newJoke);
+      alert(`New joke added: Laugh at Joke ${jokeCount}! Delegate Dan's got it covered! 🎉`);
+    });
+  </script>
+</body>
+</html>
