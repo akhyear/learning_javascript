@@ -1,0 +1,43 @@
+#discoDave {
+  position: absolute;
+  top: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ff69b4;
+  border-radius: 50%;
+  transition: transform 0.5s ease-out, background-color 0.5s ease;
+}
+
+#discoDave.bounce {
+  animation: bounce 1s infinite;
+}
+
+#discoDave.spin {
+  animation: spin 2s infinite linear;
+}
+
+#discoDave.color-party {
+  animation: colorChange 3s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-50px) scale(1.2); }
+}
+
+@keyframes spin {
+  0% { transform: translateX(-50%) rotate(0deg); }
+  100% { transform: translateX(-50%) rotate(360deg); }
+}
+
+@keyframes colorChange {
+  0% { background-color: #ff69b4; }
+  33% { background-color: #00ff00; }
+  66% { background-color: #1e90ff; }
+  100% { background-color: #ff69b4; }
+}
