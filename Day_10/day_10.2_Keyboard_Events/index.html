@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keyboard Event Demo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Form for Enter key -->
+  <form id="myForm">
+    <label for="nameInput">Enter your name: </label>
+    <input type="text" id="nameInput" placeholder="Type and press Enter">
+  </form>
+
+  <!-- Popup for Esc key -->
+  <div id="popup" class="popup">
+    <h2>Welcome!</h2>
+    <p>Press Esc to close this popup.</p>
+  </div>
+
+  <!-- Character for Arrow keys -->
+  <div id="character" class="character">😺</div>
+
+  <!-- Log area for messages -->
+  <div id="log" class="log">
+    <h3>Event Log</h3>
+    <ul id="logList"></ul>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
