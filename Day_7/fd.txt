@@ -1,0 +1,5 @@
+js-day7-components/
+├── index.html
+├── style.css
+├── main.js
+├── Card.js          ← Component file
