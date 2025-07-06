@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Storage Demo</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .container { max-width: 600px; margin: auto; }
+    .dark { background: #333; color: #fff; }
+    .light { background: #fff; color: #000; }
+    input, select, button { margin: 5px; padding: 8px; }
+    #output { margin-top: 20px; }
+  </style>
+</head>
+<body class="light">
+  <div class="container">
+    <h1>Storage Demo</h1>
+    <label>
+      Username:
+      <input type="text" id="username" placeholder="Enter username">
+    </label>
+    <label>
+      Theme:
+      <select id="theme">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </label>
+    <br>
+    <button onclick="saveToCookies()">Save to Cookies</button>
+    <button onclick="saveToSessionStorage()">Save to sessionStorage</button>
+    <button onclick="saveToLocalStorage()">Save to localStorage</button>
+    <br>
+    <button onclick="loadData()">Load and Display Data</button>
+    <button onclick="clearData()">Clear All Data</button>
+    <div id="output"></div>
+  </div>
+
+  <script>
+    // Cookie Functions
+    function setCookie(name, value, days) {
+      let expires = "";
+      if (days) {
+        const date = new Date();
+        // it sets the expiration date to the current date plus the number of days
+        // specified in the 'days' parameter
+        // The date is set in UTC format to ensure consistency across different time zones
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+// The expires variable is then set to a string that includes the expiration date in UTC format
+        expires = "; expires=" + date.toUTCString();
+      }
+      document.cookie = name + "=" + (value || "") + expires + "; path=/";
+      // The path parameter is set to '/' to make the cookie accessible across the entire domain
+      // This means that the cookie will be sent with every request to the server for this domain
+    }
+
+    function getCookie(name) {
+      const nameEQ = name + "=";
+      const ca = document.cookie.split(';');
+      // The getCookie function retrieves the value of a cookie by its name
+      // It splits the document.cookie string into an array of individual cookies
+        // and searches for the cookie with the specified name
+      for (let i = 0; i < ca.length; i++) {
+        let c = ca[i].trim();
+        // It trims any leading or trailing whitespace from each cookie string
+        // and checks if it starts with the name of the cookie followed by an equals sign
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        // If a match is found, it returns the value of the cookie by extracting the substring
+        // that comes after the name and equals sign
+        // what is substring?
+        // The substring method is used to extract a portion of the string starting from the index
+        // specified in the 'index' parameter and extending to the character at the 'endIndex' parameter
+        // If the 'endIndex' parameter is not provided, it extracts the substring from the specified index
+        // to the end of the string
+      }
+      // If the cookie with the specified name is not found, it returns null
+      // This indicates that either the cookie does not exist or has expired
+      return null;
+    }
+
+    // Save to Cookies
+    function saveToCookies() {
+      const username = document.getElementById('username').value;
+      const theme = document.getElementById('theme').value;
+      setCookie('username', username, 7); // Expires in 7 days
+      setCookie('theme', theme, 7);
+      alert('Saved to Cookies!');
+      applyTheme(theme);
+    }
+
+    // Save to sessionStorage
+    function saveToSessionStorage() {
+      const username = document.getElementById('username').value;
+      const theme = document.getElementById('theme').value;
+      sessionStorage.setItem('username', username);
+      sessionStorage.setItem('theme', theme);
+      alert('Saved to sessionStorage!');
+      applyTheme(theme);
+    }
+
+    // Save to localStorage
+    function saveToLocalStorage() {
+      const username = document.getElementById('username').value;
+      const theme = document.getElementById('theme').value;
+      localStorage.setItem('username', username);
+      localStorage.setItem('theme', theme);
+      alert('Saved to localStorage!');
+      applyTheme(theme);
+    }
+
+    // Apply Theme
+    function applyTheme(theme) {
+      document.body.className = theme;
+      // The applyTheme function changes the class of the body element
+      // to the specified theme, allowing for dynamic styling
+      // It sets the className property of the body element to the value of the theme parameter
+    }
+
+    // Load and Display Data
+    function loadData() {
+      const output = document.getElementById('output');
+      let result = '<h3>Stored Data:</h3>';
+
+      // Cookies
+      const cookieUsername = getCookie('username');
+      const cookieTheme = getCookie('theme');
+      result += `<p><strong>Cookies:</strong> Username: ${cookieUsername || 'None'}, Theme: ${cookieTheme || 'None'}</p>`;
+
+      // sessionStorage
+      const sessionUsername = sessionStorage.getItem('username');
+      const sessionTheme = sessionStorage.getItem('theme');
+      result += `<p><strong>sessionStorage:</strong> Username: ${sessionUsername || 'None'}, Theme: ${sessionTheme || 'None'}</p>`;
+
+      // localStorage
+      const localUsername = localStorage.getItem('username');
+      const localTheme = localStorage.getItem('theme');
+      result += `<p><strong>localStorage:</strong> Username: ${localUsername || 'None'}, Theme: ${localTheme || 'None'}</p>`;
+
+      output.innerHTML = result;
+
+      // Apply theme if found in any storage
+      const theme = localTheme || sessionTheme || cookieTheme || 'light';
+      applyTheme(theme);
+    }
+
+    // Clear All Data
+    function clearData() {
+      // Clear Cookies
+      setCookie('username', '', -1);
+      setCookie('theme', '', -1);
+
+      // Clear sessionStorage
+      sessionStorage.removeItem('username');
+      sessionStorage.removeItem('theme');
+
+      // Clear localStorage
+      localStorage.removeItem('username');
+      localStorage.removeItem('theme');
+
+      alert('All data cleared!');
+      document.getElementById('output').innerHTML = '';
+      applyTheme('light'); // Reset to default theme
+    }
+
+    // Load theme on page load
+    window.onload = () => {
+      const theme = localStorage.getItem('theme') || sessionStorage.getItem('theme') || getCookie('theme') || 'light';
+      applyTheme(theme);
+      document.getElementById('theme').value = theme;
+    };
+  </script>
+</body>
+</html>
