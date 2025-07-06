@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kanban Board</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>🧱 JS Drag-and-Drop Trello</h1>
+
+  <div class="board">
+    <div class="column" id="todo">
+      <h2>📝 To Do</h2>
+      <div class="task" draggable="true" id="task1">Build UI</div>
+      <div class="task" draggable="true" id="task2">Write Code</div>
+    </div>
+
+    <div class="column" id="inprogress">
+      <h2>🚧 In Progress</h2>
+    </div>
+  </div>
+
+  <script src="main.js" type="module"></script>
+</body>
+</html>
